@@ -18,6 +18,11 @@ class Bookmark < ActiveRecord::Base
         end
     end
 
+    def tags
+        return [] unless self[:tags]
+        self[:tags].split(" ")
+    end
+
 private
 
     def domain

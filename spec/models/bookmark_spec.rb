@@ -22,6 +22,13 @@ describe Bookmark do
         bookmark.length.should == 1
     end
 
+    it "should represent the tags in array form" do
+        @bookmark.tags = "tag1 tag2"
+        @bookmark.tags.class.should == Array
+        @bookmark.tags[0].should == "tag1"
+        @bookmark.tags[1].should == "tag2"
+    end
+
     it "should not be valid if URL is missing" do
         @bookmark.url = nil
         @bookmark.should_not be_valid
