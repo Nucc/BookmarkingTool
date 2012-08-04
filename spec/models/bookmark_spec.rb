@@ -71,6 +71,19 @@ describe Bookmark do
         other_bookmark.site_id.should == original_site_id
     end
 
+    it "should attached to the corresponding site when created" do
+        site = Site.new
+        site.domain = "domain.tld"
+        site.save!
+
+        bookmark = create_bookmark
+        bookmark.url = "http://domain.tld/appletree"
+        bookmark.save!
+
+        site.bookmarks.length.should == 1
+        site.bookmarks.first.url == "http://domain.tld/appletree"
+    end
+
 protected
 
     def create_bookmark
