@@ -38,4 +38,15 @@ describe Bookmark do
         @bookmark.site.class.should == Site
     end
 
+    it "URL needs to be parsed to extract the domain" do
+        @bookmark.url = "http://my.url/example"
+        @bookmark.site.name.should == "my.url"
+
+        @bookmark.url = "no_http.com/example"
+        @bookmark.site.name.should == "no_http.com"
+
+        @bookmark.url = "no_top_level/example"
+        @bookmark.site.name.should == "no_top_level"
+    end
+
 end

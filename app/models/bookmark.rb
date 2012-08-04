@@ -6,12 +6,16 @@ class Bookmark < ActiveRecord::Base
     belongs_to :site
 
     def url=(url)
-        self.site = Site.new
         self[:url] = url
+        self.site = Site.new
+        self.site.name = domain
     end
 
-    def site
-        Site.new
+private
+
+    def domain
+        return "" if self[:url] == nil or self[:url] == ""
+        url.match(/^(http:\/\/){0,1}([^\/]+)(.*)$/)[2]
     end
 
 end
