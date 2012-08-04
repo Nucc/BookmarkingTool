@@ -6,7 +6,14 @@ gem 'sqlite3', '1.3.6'
 gem 'jquery-rails', '2.0.2'
 gem 'rspec-rails', '2.11.0'
 
+gem 'sprockets', '2.1.3'
 
 group :development do
-	gem 'debugger'
+    gem 'haml-rails', '0.3.4'
+    gem 'debugger'
+end
+
+group :test do
+    gem 'capybara', '1.1.2'
+    gem 'capybara-webkit', '0.11.0'
 end

@@ -1,0 +1,11 @@
+#index_page
+
+= form_for @bookmark do |f|
+
+    = f.label :url
+    = f.text_field :url
+
+    = f.label :tags
+    = f.text_field :tags
+
+    = f.submit "Save bookmark"
