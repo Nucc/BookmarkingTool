@@ -11,4 +11,16 @@ describe SitesController do
 
     end
 
+    describe "GET /show" do
+        it "should response 200 to show action" do
+            site = Site.new
+            site.domain = "alphasights.com"
+            site.save!
+
+            get :show, :id => site.id
+
+            response.status.should == 200
+        end
+    end
+
 end
