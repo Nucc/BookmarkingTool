@@ -91,6 +91,11 @@ describe Bookmark do
         site.bookmarks.first.url == "http://domain.tld/appletree"
     end
 
+    it "should use the http prefix for urls" do
+        @bookmark.url = "bbc.co.uk"
+        @bookmark.url.should == "http://bbc.co.uk"
+    end
+
 protected
 
     def create_bookmark

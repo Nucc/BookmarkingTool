@@ -18,6 +18,16 @@ class Bookmark < ActiveRecord::Base
         end
     end
 
+    def url
+        return "" unless self[:url]
+
+        if self[:url] and self[:url].length > 0
+            return "http://#{self[:url]}" unless self[:url] =~ /^http:\/\//
+        end
+
+        self[:url]
+    end
+
     def tags
         return [] unless self[:tags]
         self[:tags].split(" ")
@@ -26,7 +36,7 @@ class Bookmark < ActiveRecord::Base
 private
 
     def domain
-        return "" if self[:url] == nil or self[:url] == ""
+        return "" if url == ""
         url.match(/^(http:\/\/){0,1}([^\/]+)(.*)$/)[2]
     end
 
