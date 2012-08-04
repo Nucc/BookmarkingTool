@@ -1,5 +1,5 @@
 class Site < ActiveRecord::Base
 
-    validates_uniqueness_of :name, :on => :create, :message => "must be unique"
+    validates_uniqueness_of :domain, :on => :create, :message => "must be unique"
 
 end

@@ -38,13 +38,13 @@ describe Bookmark do
 
     it "URL needs to be parsed to extract the domain" do
         @bookmark.url = "http://my.url/example"
-        @bookmark.site.name.should == "my.url"
+        @bookmark.site.domain.should == "my.url"
 
         @bookmark.url = "no_http.com/example"
-        @bookmark.site.name.should == "no_http.com"
+        @bookmark.site.domain.should == "no_http.com"
 
         @bookmark.url = "no_top_level/example"
-        @bookmark.site.name.should == "no_top_level"
+        @bookmark.site.domain.should == "no_top_level"
     end
 
     it "the site attribute is not changable from outside" do
@@ -53,16 +53,16 @@ describe Bookmark do
 
     it "must create site domain on save if it doesn't exist in the database before" do
         @bookmark.url = "my_domain/path"
-        Site.find_by_name("my_domain").should == nil
+        Site.find_by_domain("my_domain").should == nil
         @bookmark.save!
-        Site.find_by_name("my_domain").should_not == nil
+        Site.find_by_domain("my_domain").should_not == nil
     end
 
     it "should not create new domain when one instance is exists" do
         @bookmark.url = "domain/path"
         @bookmark.save!
 
-        original_site_id = Site.find_by_name("domain").id
+        original_site_id = Site.find_by_domain("domain").id
 
         other_bookmark = create_bookmark
         other_bookmark.url = "domain/another_path"

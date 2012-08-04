@@ -11,10 +11,10 @@ class Bookmark < ActiveRecord::Base
     def url=(url)
         self[:url] = url
 
-        self.site = Site.find_by_name(domain)
+        self.site = Site.find_by_domain(domain)
         unless site
             self.site = Site.new
-            self.site.name = domain
+            self.site.domain = domain
         end
     end
 
