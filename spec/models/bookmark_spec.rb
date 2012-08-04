@@ -2,24 +2,36 @@ require 'spec_helper'
 
 describe Bookmark do
 
-    it "should be able to store URL" do
-        bookmark = Bookmark.new
-        bookmark.url = "http://this.is.an.url"
-        bookmark.save!
+    before :each do
+        @bookmark = Bookmark.new
+        @bookmark.url = "http://sample.url"
+        @bookmark.tags = "mytag"
+    end
 
-        bookmark = nil
+    it "should be able to store URL" do
+        @bookmark.url = "http://this.is.an.url"
+        @bookmark.save!
+
         bookmark = Bookmark.find_all_by_url("http://this.is.an.url")
         bookmark.length.should == 1
     end
 
     it "should be able to store tags" do
-        bookmark = Bookmark.new
-        bookmark.tags = "tag1 tag2"
-        bookmark.save!
+        @bookmark.tags = "tag1 tag2"
+        @bookmark.save!
 
-        bookmark = nil
         bookmark = Bookmark.find_all_by_tags("tag1 tag2")
         bookmark.length.should == 1
+    end
+
+    it "should not be valid if URL is missing" do
+        @bookmark.url = nil
+        @bookmark.should_not be_valid
+    end
+
+    it "should not be valid if TAGS is missing" do
+        @bookmark.tags = nil
+        @bookmark.should_not be_valid
     end
 
 end
