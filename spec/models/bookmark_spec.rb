@@ -96,6 +96,18 @@ describe Bookmark do
         @bookmark.url.should == "http://bbc.co.uk"
     end
 
+    it "should shorten the url with tinyurl" do
+        @bookmark.url = "alphasights.com"
+        @bookmark.short.should == "6xcwayn"
+        @bookmark.save!
+
+        Bookmark.find(@bookmark.id).short.should == "6xcwayn"
+    end
+
+    it "should not have public short= method" do
+        lambda { @bookmark.short = "Site.new" }.should raise_error
+    end
+
     it "it should store the page title" do
         @bookmark.url = "http://www.apple.com/"
         @bookmark.title.should == "Apple"
