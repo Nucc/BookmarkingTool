@@ -5,13 +5,20 @@ gem 'rails', '3.2.7'
 gem 'sqlite3', '1.3.6'
 gem 'jquery-rails', '2.0.2'
 gem 'rspec-rails', '2.11.0'
-
 gem 'sprockets', '2.1.3'
 
 gem 'metainspector', '1.9.6'
 
+group :assets do
+  gem 'sass', '3.1.16'
+  gem 'sass-rails', '3.2.3'
+  gem 'haml-rails', '0.3.4'
+
+  # https://github.com/thomas-mcdonald/bootstrap-sass
+  gem 'bootstrap-sass', '2.0.2'
+end
+
 group :development do
-    gem 'haml-rails', '0.3.4'
     gem 'debugger'
 end
 

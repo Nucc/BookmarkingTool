@@ -1,0 +1,5 @@
+#sites
+    - @sites.each do |site|
+        %li
+            %a.site_link{:href => site_path(site)}
+                %h2= site.domain
