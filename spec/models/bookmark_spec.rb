@@ -47,11 +47,11 @@ describe Bookmark do
         @bookmark.url = "http://my.url/example"
         @bookmark.site.domain.should == "my.url"
 
-        @bookmark.url = "no_http.com/example"
-        @bookmark.site.domain.should == "no_http.com"
+        @bookmark.url = "cnn.com/example"
+        @bookmark.site.domain.should == "cnn.com"
 
-        @bookmark.url = "no_top_level/example"
-        @bookmark.site.domain.should == "no_top_level"
+        @bookmark.url = "localhost/example"
+        @bookmark.site.domain.should == "localhost"
     end
 
     it "the site attribute is not changable from outside" do
@@ -59,10 +59,10 @@ describe Bookmark do
     end
 
     it "must create site domain on save if it doesn't exist in the database before" do
-        @bookmark.url = "my_domain/path"
-        Site.find_by_domain("my_domain").should == nil
+        @bookmark.url = "localhost/path"
+        Site.find_by_domain("localhost").should == nil
         @bookmark.save!
-        Site.find_by_domain("my_domain").should_not == nil
+        Site.find_by_domain("localhost").should_not == nil
     end
 
     it "should not create new domain when one instance is exists" do
@@ -96,6 +96,23 @@ describe Bookmark do
         @bookmark.url.should == "http://bbc.co.uk"
     end
 
+    it "it should store the page title" do
+        @bookmark.url = "http://www.apple.com/"
+        @bookmark.title.should == "Apple"
+        @bookmark.save!
+
+        Bookmark.find_by_title("Apple").should_not == nil
+    end
+
+    it "it should store other meta information" do
+        @bookmark.url = "http://www.apple.com/"
+        description = "Apple designs and creates iPod and iTunes, Mac laptop and desktop computers, the OS X operating system, and the revolutionary iPhone and iPad."
+        @bookmark.description.should == description
+        @bookmark.save!
+
+        Bookmark.find(@bookmark.id).description.should == description
+    end
+
 protected
 
     def create_bookmark
@@ -105,4 +122,11 @@ protected
         bookmark
     end
 
+end
+
+module MetaInspector
+    class Scraper
+        def add_fatal_error(error)
+        end
+    end
 end

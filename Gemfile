@@ -8,6 +8,8 @@ gem 'rspec-rails', '2.11.0'
 
 gem 'sprockets', '2.1.3'
 
+gem 'metainspector', '1.9.6'
+
 group :development do
     gem 'haml-rails', '0.3.4'
     gem 'debugger'

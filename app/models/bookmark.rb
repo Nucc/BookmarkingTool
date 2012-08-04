@@ -16,6 +16,7 @@ class Bookmark < ActiveRecord::Base
             self.site = Site.new
             self.site.domain = domain
         end
+        set_meta_information
     end
 
     def url
@@ -38,6 +39,15 @@ private
     def domain
         return "" if url == ""
         url.match(/^(http:\/\/){0,1}([^\/]+)(.*)$/)[2]
+    end
+
+    def set_meta_information
+        meta_info = MetaInspector.new(url)
+
+        self.title = meta_info.title
+        self.description = meta_info.description
+    rescue
+        # LOGGING
     end
 
 end
