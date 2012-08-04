@@ -5,10 +5,17 @@ class Bookmark < ActiveRecord::Base
 
     belongs_to :site
 
+    # Site depends on the url, so does not bother it from outside
+    private :site=
+
     def url=(url)
         self[:url] = url
-        self.site = Site.new
-        self.site.name = domain
+
+        self.site = Site.find_by_name(domain)
+        unless site
+            self.site = Site.new
+            self.site.name = domain
+        end
     end
 
 private

@@ -3,9 +3,7 @@ require 'spec_helper'
 describe Bookmark do
 
     before :each do
-        @bookmark = Bookmark.new
-        @bookmark.url = "http://sample.url"
-        @bookmark.tags = "mytag"
+        @bookmark = create_bookmark
     end
 
     it "should be able to store URL" do
@@ -47,6 +45,39 @@ describe Bookmark do
 
         @bookmark.url = "no_top_level/example"
         @bookmark.site.name.should == "no_top_level"
+    end
+
+    it "the site attribute is not changable from outside" do
+        lambda { @bookmark.site = Site.new }.should raise_error
+    end
+
+    it "must create site domain on save if it doesn't exist in the database before" do
+        @bookmark.url = "my_domain/path"
+        Site.find_by_name("my_domain").should == nil
+        @bookmark.save!
+        Site.find_by_name("my_domain").should_not == nil
+    end
+
+    it "should not create new domain when one instance is exists" do
+        @bookmark.url = "domain/path"
+        @bookmark.save!
+
+        original_site_id = Site.find_by_name("domain").id
+
+        other_bookmark = create_bookmark
+        other_bookmark.url = "domain/another_path"
+        other_bookmark.save!
+
+        other_bookmark.site_id.should == original_site_id
+    end
+
+protected
+
+    def create_bookmark
+        bookmark = Bookmark.new
+        bookmark.url = "http://sample.url"
+        bookmark.tags = "mytag"
+        bookmark
     end
 
 end
