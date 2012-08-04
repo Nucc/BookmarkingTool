@@ -12,4 +12,14 @@ describe Bookmark do
         bookmark.length.should == 1
     end
 
+    it "should be able to store tags" do
+        bookmark = Bookmark.new
+        bookmark.tags = "tag1 tag2"
+        bookmark.save!
+
+        bookmark = nil
+        bookmark = Bookmark.find_all_by_tags("tag1 tag2")
+        bookmark.length.should == 1
+    end
+
 end
