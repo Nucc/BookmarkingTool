@@ -34,4 +34,8 @@ describe Bookmark do
         @bookmark.should_not be_valid
     end
 
+    it "should be modeled as belonging to a site" do
+        @bookmark.site.class.should == Site
+    end
+
 end
