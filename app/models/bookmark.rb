@@ -45,6 +45,10 @@ class Bookmark < ActiveRecord::Base
         @url_shortener = shortener
     end
 
+    def short
+        "http://tinyurl.com/#{self[:short]}"
+    end
+
 private
 
     def meta_collector

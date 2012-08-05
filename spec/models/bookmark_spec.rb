@@ -101,10 +101,10 @@ describe Bookmark do
         @shortener.body = "tinyurl.com/6xcwayn"
 
         @bookmark.url = "alphasights.com"
-        @bookmark.short.should == "6xcwayn"
+        @bookmark.short.should == "http://tinyurl.com/6xcwayn"
         @bookmark.save!
 
-        Bookmark.find(@bookmark.id).short.should == "6xcwayn"
+        Bookmark.find(@bookmark.id).short.should == "http://tinyurl.com/6xcwayn"
     end
 
     it "should not have public short= method" do
