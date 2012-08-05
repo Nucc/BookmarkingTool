@@ -8,6 +8,9 @@ gem 'sprockets', '2.1.3'
 
 gem 'metainspector', '1.9.6'
 
+# For Heroku
+gem 'activerecord-postgresql-adapter'
+
 group :assets do
   gem 'sass', '3.1.16'
   gem 'sass-rails', '3.2.3'
