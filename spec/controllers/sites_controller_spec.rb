@@ -24,4 +24,11 @@ describe SitesController do
         end
     end
 
+    it "should not allow destroy, new, create and update actions" do
+        lambda {delete :destroy}.should raise_exception
+        lambda {get :new}.should raise_exception
+        lambda {post :create}.should raise_exception
+        lambda {put :update}.should raise_exception
+    end
+
 end
