@@ -131,6 +131,11 @@ describe Bookmark do
         Bookmark.find(@bookmark.id).description.should == "Apple description"
     end
 
+    it "should have search interface" do
+        Bookmark.should respond_to(:search)
+    end
+
+
 protected
 
     def create_bookmark

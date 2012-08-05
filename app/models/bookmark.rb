@@ -11,6 +11,9 @@ class Bookmark < ActiveRecord::Base
     # Site depends on the url, so does not bother it from outside
     private :site=
 
+    def self.search(value)
+    end
+
     def url=(url)
         self[:url] = url
 
