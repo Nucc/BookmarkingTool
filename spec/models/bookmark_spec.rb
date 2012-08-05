@@ -111,7 +111,7 @@ describe Bookmark do
         lambda { @bookmark.short = "Site.new" }.should raise_error
     end
 
-    it "it should store the page title" do
+    it "should store the page title" do
         @collector.title = "Apple"
 
         @bookmark.url = "http://www.apple.com/"
@@ -121,7 +121,7 @@ describe Bookmark do
         Bookmark.find_by_title("Apple").should_not == nil
     end
 
-    it "it should store other meta information" do
+    it "should store other meta information" do
         @collector.description = "Apple description"
 
         @bookmark.url = "http://www.apple.com/"
