@@ -16,4 +16,10 @@ class BookmarksController < ApplicationController
         render :text => "Bookmark has missing attributes!"
     end
 
+    def show
+        @bookmark = Bookmark.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+        # LOGGING
+    end
+
 end

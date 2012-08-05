@@ -11,4 +11,21 @@ describe BookmarksController do
 
     end
 
+    describe "GET /show" do
+
+        it "should response 200 to show action" do
+
+            bookmark = Bookmark.new
+            bookmark.id = 1
+            bookmark.url = "alphasights.com"
+            bookmark.tags = "tag1"
+            bookmark.save!
+
+            get :show, :id => 1
+
+            response.status.should == 200
+        end
+
+    end
+
 end
