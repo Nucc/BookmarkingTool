@@ -39,7 +39,7 @@ class Bookmark < ActiveRecord::Base
         return "" unless self[:url]
 
         if self[:url] and self[:url].length > 0
-            return "http://#{self[:url]}" unless self[:url] =~ /^http:\/\//
+            return "http://#{self[:url]}" unless self[:url] =~ /^(http|https):\/\//
         end
 
         self[:url]
@@ -79,7 +79,7 @@ private
 
     def domain
         return "" if url == ""
-        url.match(/^(http:\/\/){0,1}([^\/]+)(.*)$/)[2]
+        url.match(/^((http|https):\/\/){0,1}([^\/]+)(.*)$/)[3]
     end
 
     def set_meta_information

@@ -53,6 +53,9 @@ describe Bookmark do
 
         @bookmark.url = "localhost/example"
         @bookmark.site.domain.should == "localhost"
+
+        @bookmark.url = "https://localhost/path"
+        @bookmark.site.domain.should == "localhost"
     end
 
     it "the site attribute is not changable from outside" do
