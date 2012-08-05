@@ -15,9 +15,10 @@ describe SitesController do
         it "should response 200 to show action" do
             site = Site.new
             site.domain = "alphasights.com"
-            site.save!
 
-            get :show, :id => site.id
+            Site.should_receive(:find).with("1").and_return(site)
+
+            get :show, :id => 1
 
             response.status.should == 200
         end

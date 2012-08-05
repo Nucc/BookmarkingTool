@@ -19,7 +19,8 @@ describe BookmarksController do
             bookmark.id = 1
             bookmark.url = "alphasights.com"
             bookmark.tags = "tag1"
-            bookmark.save!
+
+            Bookmark.should_receive(:find).with("1").and_return(bookmark)
 
             get :show, :id => 1
 
@@ -27,5 +28,4 @@ describe BookmarksController do
         end
 
     end
-
 end
