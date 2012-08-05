@@ -1,2 +1,3 @@
-%li
-    = link_to bookmark.url, bookmark_path(bookmark)
+%li.well
+    %h3
+    = link_to bookmark.title ? bookmark.title : bookmark.url, bookmark_path(bookmark)

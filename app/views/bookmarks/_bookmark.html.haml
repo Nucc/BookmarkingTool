@@ -1,19 +1,24 @@
-#bookmark
+#bookmark.well
     .title
         %h1= title_of(bookmark)
 
     .url
         %span= link_to bookmark.url, bookmark.url
 
+    %hr
 
     .description
         .lead= description_of(bookmark)
 
+    %hr
 
     .tags
         - bookmark.tags.each do |tag|
             %code= tag
 
-    .shorten
-        .label.label-info.pull-left= "#{bookmark.short}"
+    .pull-right
+        .shorten
+            .label.label-info.pull-left= link_to bookmark.short, bookmark.short
+
+%div.clear
 

@@ -16,7 +16,7 @@ describe "sites/show" do
         render
 
         rendered.should have_xpath("//div[@id='site']//*[text()='alphasights.com']")
-        rendered.should have_xpath("//div[@id='site']//li//a[@href='/bookmarks/1' and text()='http://alphasights.com/careers']")
+        rendered.should have_xpath("//div[@id='site']//li//a[@href='/bookmarks/1' and text()='AlphaSights']")
         rendered.should have_xpath("//div[@id='site']//li//a[@href='/bookmarks/2' and text()='http://alphasights.com/what-we-do']")
     end
 
