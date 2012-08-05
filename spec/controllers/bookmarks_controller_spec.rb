@@ -29,6 +29,13 @@ describe BookmarksController do
 
     end
 
+    describe "GET /search" do
+        it "should response 200 to search action" do
+            get :search
+            response.status.should == 200
+        end
+    end
+
     it "should allow show, new and create action only" do
         lambda {delete :destroy}.should raise_exception
         lambda {get :index}.should raise_exception

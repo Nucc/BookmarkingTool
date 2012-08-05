@@ -26,4 +26,7 @@ class BookmarksController < ApplicationController
         # LOGGING
     end
 
+    def search
+    end
+
 end
