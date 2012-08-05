@@ -131,10 +131,43 @@ describe Bookmark do
         Bookmark.find(@bookmark.id).description.should == "Apple description"
     end
 
-    it "should have search interface" do
-        Bookmark.should respond_to(:search)
-    end
 
+    describe "search" do
+
+        it "should have search interface" do
+            Bookmark.should respond_to(:search)
+        end
+
+        it "should return array" do
+            Bookmark.search("").class.should == ActiveRecord::Relation
+        end
+
+        it "should be able to search for any field of the bookmarks" do
+            @collector.title = "Title"
+            @collector.description = "description"
+            @shortener.body = "tinyurl.com/shorten"
+
+            @bookmark.url = "http://www.alphasights.com/"
+            @bookmark.tags = "tag1 tag2"
+            @bookmark.save!
+
+            Bookmark.search("sights.com").length.should == 1
+
+            Bookmark.search("tree").length.should == 0
+            Bookmark.search("Ttitle").length.should == 0
+            Bookmark.search("title").length.should == 1
+            Bookmark.search("Title").length.should == 1
+
+            Bookmark.search("shorten").length.should == 1
+
+            Bookmark.search("description").length.should == 1
+
+            Bookmark.search("tag1").length.should == 1
+            Bookmark.search("tag2").length.should == 1
+            Bookmark.search("tag3").length.should == 0
+        end
+
+    end
 
 protected
 

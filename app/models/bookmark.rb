@@ -8,10 +8,20 @@ class Bookmark < ActiveRecord::Base
 
     belongs_to :site
 
+    SEARCHABLE_FIELDS = [:url, :tags, :title, :description, :short]
+
     # Site depends on the url, so does not bother it from outside
     private :site=
 
     def self.search(value)
+        table = Bookmark.arel_table
+        searchable_fields = SEARCHABLE_FIELDS.dup
+
+        filter = table[searchable_fields.shift].matches("%#{value}%")
+        searchable_fields.each do |field|
+            filter = filter.or(table[field].matches("%#{value}%"))
+        end
+        Bookmark.where(filter)
     end
 
     def url=(url)
