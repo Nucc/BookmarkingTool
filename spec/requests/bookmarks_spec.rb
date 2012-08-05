@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'remote_connection_mocks'
 
 describe "Bookmarks" do
 
@@ -34,6 +35,19 @@ describe "Bookmarks" do
             click_button "Save bookmark"
 
             page.should have_content("Bookmark has missing attributes!")
+        end
+
+        it "should provide search interface" do
+            bookmark = Bookmark.new
+            bookmark.meta_collector = BookingToolMocks::MetaInfo.new
+            bookmark.url_shortener = BookingToolMocks::TinyURL.new
+            bookmark.url = "wikipedia.org"
+            bookmark.tags = "tag"
+            bookmark.save!
+
+            visit "/bookmarks/search/wiki"
+
+            page.should have_content("http://wikipedia.org")
         end
 
 

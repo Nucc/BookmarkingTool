@@ -1,0 +1,5 @@
+- if @bookmarks and @bookmarks.length > 0
+    = render :partial => "bookmark", :collection => @bookmarks
+- else
+    %h1
+        No search result...

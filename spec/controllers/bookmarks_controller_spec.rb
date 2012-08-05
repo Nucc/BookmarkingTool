@@ -33,6 +33,7 @@ describe BookmarksController do
         it "should response 200 to search action" do
             get :search
             response.status.should == 200
+            response.should render_template(:search)
         end
     end
 

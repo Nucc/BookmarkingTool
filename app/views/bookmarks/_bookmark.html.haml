@@ -1,16 +1,17 @@
 #bookmark
     .title
-        %h1= @bookmark.title ? @bookmark.title : "No title"
+        %h1= bookmark.title ? bookmark.title : "No title"
 
     .url
-        %span= link_to @bookmark.url, @bookmark.url
+        %span= link_to bookmark.url, bookmark.url
 
     .description
-        .lead= @bookmark.description ? @bookmark.description : "No description"
+        .lead= bookmark.description ? bookmark.description : "No description"
 
     .tags
-        - @bookmark.tags.each do |tag|
+        - bookmark.tags.each do |tag|
             %code= tag
 
     .shorten
-        .label.label-info.pull-left= "#{@bookmark.short}"
+        .label.label-info.pull-left= "#{bookmark.short}"
+

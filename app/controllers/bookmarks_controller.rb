@@ -27,6 +27,7 @@ class BookmarksController < ApplicationController
     end
 
     def search
+        @bookmarks = Bookmark.search(params[:id])
     end
 
 end
