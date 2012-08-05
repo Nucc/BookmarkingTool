@@ -11,14 +11,12 @@ gem 'metainspector', '1.9.6'
 # For Heroku
 gem 'activerecord-postgresql-adapter'
 
-group :assets do
-  gem 'sass', '3.1.16'
-  gem 'sass-rails', '3.2.3'
-  gem 'haml-rails', '0.3.4'
+gem 'sass', '3.1.16'
+gem 'sass-rails', '3.2.3'
+gem 'haml-rails', '0.3.4'
 
-  # https://github.com/thomas-mcdonald/bootstrap-sass
-  gem 'bootstrap-sass', '2.0.2'
-end
+# https://github.com/thomas-mcdonald/bootstrap-sass
+gem 'bootstrap-sass', '2.0.2'
 
 group :development do
     gem 'debugger'
