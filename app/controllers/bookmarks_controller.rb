@@ -6,14 +6,18 @@ class BookmarksController < ApplicationController
 
     def create
 
-        bookmark = Bookmark.new
-        bookmark.url = params["bookmark"]["url"]
-        bookmark.tags = params["bookmark"]["tags"]
-        bookmark.save!
+        begin
+            @bookmark = Bookmark.new
+            @bookmark.url = params["bookmark"]["url"]
+            @bookmark.tags = params["bookmark"]["tags"]
+            @bookmark.save!
 
-        render :text => "Bookmark has been saved!"
-    rescue
-        render :text => "Bookmark has missing attributes!"
+            @bookmark = Bookmark.new
+            flash.now[:notice] = "Bookmark has been saved!"
+        rescue
+            flash.now[:error] = "Bookmark has missing attributes!"
+        end
+        render :action => :new
     end
 
     def show

@@ -1,0 +1,15 @@
+#new_bookmark {
+    .url {
+        input {
+            height: 30px;
+            width: 100%;
+            font-size: 20px;
+        }
+    }
+
+    .field_with_errors {
+        input {
+            border: 1px solid red;
+        }
+    }
+}

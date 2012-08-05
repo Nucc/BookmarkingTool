@@ -1,11 +1,25 @@
-#index_page
+#new_bookmark
 
-= form_for @bookmark do |f|
+    - if flash[:notice]
+        .alert.alert-success= flash[:notice]
 
-    = f.label :url
-    = f.text_field :url
+    - if flash[:error]
+        .alert.alert-error= flash[:error]
 
-    = f.label :tags
-    = f.text_field :tags
 
-    = f.submit "Save bookmark"
+    = form_for @bookmark, :html => {:class => "well"}  do |f|
+        %fieldset
+            %h1
+                Adding new bookmark
+            %hr
+
+            .control-group.url
+                = f.label :url
+                = f.text_field :url, :placeholder => "http://"
+
+            .control-group.tags
+                = f.label :tags
+                = f.text_field :tags, :placeholder => "tag"
+
+            .form-actions
+                = f.submit "Save bookmark", :class => "btn btn-primary"
