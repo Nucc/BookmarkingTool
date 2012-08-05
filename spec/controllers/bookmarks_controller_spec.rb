@@ -28,4 +28,11 @@ describe BookmarksController do
         end
 
     end
+
+    it "should allow show new and create action only" do
+        lambda {delete :destroy}.should raise_exception
+        lambda {get :index}.should raise_exception
+        lambda {post :update}.should raise_exception
+    end
+
 end
