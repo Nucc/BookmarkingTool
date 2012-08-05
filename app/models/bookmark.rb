@@ -1,3 +1,6 @@
+require "meta_info.rb"
+require "tinyurl.rb"
+
 class Bookmark < ActiveRecord::Base
 
     validates_presence_of :url
@@ -34,7 +37,24 @@ class Bookmark < ActiveRecord::Base
         self[:tags].split(" ")
     end
 
+    def meta_collector=(collector)
+        @meta_collector = collector
+    end
+
+    def url_shortener=(shortener)
+        @url_shortener = shortener
+    end
+
 private
+
+    def meta_collector
+        @meta_collector or BookingTool::MetaInfo.new
+    end
+
+    def url_shortener
+        @url_shortener or BookingTool::TinyURL.new
+    end
+
 
     def short=(url)
         self[:short] = url.split("tinyurl.com/")[1]
@@ -52,7 +72,7 @@ private
 
     def set_title_and_description
         begin
-            meta_info = MetaInspector.new(url)
+            meta_info = meta_collector.info(url)
             self.title = meta_info.title
             self.description = meta_info.description
         rescue
@@ -62,10 +82,7 @@ private
 
     def set_short_url
         begin
-            tinyurl = URI.parse("http://tinyurl.com/")
-            self.short = Net::HTTP.start(tinyurl.host, tinyurl.port) { |http|
-                http.get("/api-create.php?url=" + url)
-            }.body
+            self.short = url_shortener.use(url).body
         rescue
             #LOGGING
         end

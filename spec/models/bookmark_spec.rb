@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'remote_connection_mocks'
 
 describe Bookmark do
 
@@ -97,6 +98,8 @@ describe Bookmark do
     end
 
     it "should shorten the url with tinyurl" do
+        @shortener.body = "tinyurl.com/6xcwayn"
+
         @bookmark.url = "alphasights.com"
         @bookmark.short.should == "6xcwayn"
         @bookmark.save!
@@ -109,6 +112,8 @@ describe Bookmark do
     end
 
     it "it should store the page title" do
+        @collector.title = "Apple"
+
         @bookmark.url = "http://www.apple.com/"
         @bookmark.title.should == "Apple"
         @bookmark.save!
@@ -117,18 +122,26 @@ describe Bookmark do
     end
 
     it "it should store other meta information" do
+        @collector.description = "Apple description"
+
         @bookmark.url = "http://www.apple.com/"
-        description = "Apple designs and creates iPod and iTunes, Mac laptop and desktop computers, the OS X operating system, and the revolutionary iPhone and iPad."
-        @bookmark.description.should == description
+        @bookmark.description.should == "Apple description"
         @bookmark.save!
 
-        Bookmark.find(@bookmark.id).description.should == description
+        Bookmark.find(@bookmark.id).description.should == "Apple description"
     end
 
 protected
 
     def create_bookmark
         bookmark = Bookmark.new
+
+        @collector = BookingToolMocks::MetaInfo.new
+        bookmark.meta_collector = @collector
+
+        @shortener = BookingToolMocks::TinyURL.new
+        bookmark.url_shortener = @shortener
+
         bookmark.url = "http://sample.url"
         bookmark.tags = "mytag"
         bookmark
