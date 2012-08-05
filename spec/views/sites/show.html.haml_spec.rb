@@ -20,4 +20,10 @@ describe "sites/show" do
         rendered.should have_xpath("//div[@id='site']//li//a[@href='/bookmarks/2' and text()='http://alphasights.com/what-we-do']")
     end
 
+    it "displays No site has been found when site is missing" do
+        render
+        rendered.should have_content("No site has been found...")
+    end
+
+
 end

@@ -1,3 +1,7 @@
 #site
-    %h1= @site.domain
-    = render :partial => "bookmark", :collection => @site.bookmarks
+    - if @site
+        %h1= @site.domain
+        = render :partial => "bookmark", :collection => @site.bookmarks
+    - else
+        %h1
+            No site has been found...

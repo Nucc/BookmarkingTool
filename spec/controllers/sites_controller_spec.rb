@@ -22,6 +22,11 @@ describe SitesController do
 
             response.status.should == 200
         end
+
+        it "should response 200 when site is missing" do
+            get :show, :id => "aaa"
+            response.status.should == 200
+        end
     end
 
     it "should not allow destroy, new, create and update actions" do
