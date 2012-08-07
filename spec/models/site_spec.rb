@@ -17,4 +17,12 @@ describe Site do
         lambda { site.save! }.should raise_error(ActiveRecord::RecordInvalid)
     end
 
+    it "should be able to find an existing or create a new site" do
+        site = Site.find_or_create_by_url("http://localhost/path")
+        site.save!
+
+        other_site = Site.find_or_create_by_url("http://localhost/path")
+        site.id.should == other_site.id
+    end
+
 end

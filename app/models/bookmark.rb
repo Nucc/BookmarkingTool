@@ -25,24 +25,9 @@ class Bookmark < ActiveRecord::Base
     end
 
     def url=(url)
-        self[:url] = url
-
-        self.site = Site.find_by_domain(domain)
-        unless site
-            self.site = Site.new
-            self.site.domain = domain
-        end
+        self[:url] = append_protocol(url)
+        self.site = Site.find_or_create_by_url(url)
         set_meta_information
-    end
-
-    def url
-        return "" unless self[:url]
-
-        if self[:url] and self[:url].length > 0
-            return "http://#{self[:url]}" unless self[:url] =~ /^(http|https):\/\//
-        end
-
-        self[:url]
     end
 
     def tags
@@ -72,19 +57,20 @@ private
         @url_shortener or Bookmarking::TinyURL.new
     end
 
-
     def short=(url)
         self[:short] = url.split("tinyurl.com/")[1]
-    end
-
-    def domain
-        return "" if url == ""
-        url.match(/^((http|https):\/\/){0,1}([^\/]+)(.*)$/)[3]
     end
 
     def set_meta_information
         set_title_and_description
         set_short_url
+    end
+
+    def append_protocol(url)
+        if url and url.length > 0
+            return "http://#{url}" unless url =~ /^(http|https):\/\//
+        end
+        url
     end
 
     def set_title_and_description
