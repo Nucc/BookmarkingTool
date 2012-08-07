@@ -65,11 +65,11 @@ class Bookmark < ActiveRecord::Base
 private
 
     def meta_collector
-        @meta_collector or BookingTool::MetaInfo.new
+        @meta_collector or Bookmarking::MetaInfo.new
     end
 
     def url_shortener
-        @url_shortener or BookingTool::TinyURL.new
+        @url_shortener or Bookmarking::TinyURL.new
     end
 
 

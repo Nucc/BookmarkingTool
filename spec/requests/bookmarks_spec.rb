@@ -39,8 +39,8 @@ describe "Bookmarks" do
 
         it "should provide search interface" do
             bookmark = Bookmark.new
-            bookmark.meta_collector = BookingToolMocks::MetaInfo.new
-            bookmark.url_shortener = BookingToolMocks::TinyURL.new
+            bookmark.meta_collector = BookmarkingMocks::MetaInfo.new
+            bookmark.url_shortener = BookmarkingMocks::TinyURL.new
             bookmark.url = "wikipedia.org"
             bookmark.tags = "tag"
             bookmark.save!

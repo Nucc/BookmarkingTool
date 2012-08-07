@@ -1,6 +1,6 @@
 require "uri"
 
-module BookingTool
+module Bookmarking
 
     # Proxy class for TinyURL to be able mock it out
     class TinyURL

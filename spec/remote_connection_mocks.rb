@@ -1,7 +1,7 @@
 require "meta_info.rb"
 require "tinyurl.rb"
 
-module BookingToolMocks
+module BookmarkingMocks
 
     class MetaInfo
         attr_accessor :title

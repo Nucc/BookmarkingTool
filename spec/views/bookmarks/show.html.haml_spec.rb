@@ -4,11 +4,11 @@ require 'remote_connection_mocks'
 describe "bookmarks/show" do
 
     before :each do
-        @collector = BookingToolMocks::MetaInfo.new
+        @collector = BookmarkingMocks::MetaInfo.new
         @collector.title = "Title"
         @collector.description = "Description"
 
-        @shortener = BookingToolMocks::TinyURL.new
+        @shortener = BookmarkingMocks::TinyURL.new
         @shortener.body = "http://tinyurl.com/alpha"
     end
 

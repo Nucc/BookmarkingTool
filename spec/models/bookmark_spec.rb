@@ -177,10 +177,10 @@ protected
     def create_bookmark
         bookmark = Bookmark.new
 
-        @collector = BookingToolMocks::MetaInfo.new
+        @collector = BookmarkingMocks::MetaInfo.new
         bookmark.meta_collector = @collector
 
-        @shortener = BookingToolMocks::TinyURL.new
+        @shortener = BookmarkingMocks::TinyURL.new
         bookmark.url_shortener = @shortener
 
         bookmark.url = "http://sample.url"

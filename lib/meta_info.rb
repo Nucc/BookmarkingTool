@@ -1,6 +1,6 @@
 require "metainspector"
 
-module BookingTool
+module Bookmarking
 
     # Proxy class for MetaInspector to be able mock it out
     class MetaInfo
