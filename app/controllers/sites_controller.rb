@@ -5,9 +5,10 @@ class SitesController < ApplicationController
     end
 
     def show
-        @site = Site.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-        logger.error "SitesController: Site is not found; id='%s'" % params[:id]
+        @site = Site.find_by_id(params[:id])
+        unless @site
+            logger.error "SitesController: Site is not found; id='%s'" % params[:id]
+        end
     end
 
 end

@@ -16,7 +16,7 @@ describe SitesController do
             site = Site.new
             site.domain = "alphasights.com"
 
-            Site.should_receive(:find).with("1").and_return(site)
+            Site.should_receive(:find).any_number_of_times.with("1").and_return(site)
 
             get :show, :id => 1
 

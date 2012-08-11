@@ -20,7 +20,7 @@ describe BookmarksController do
             bookmark.url = "alphasights.com"
             bookmark.tags = "tag1"
 
-            Bookmark.should_receive(:find).with("1").and_return(bookmark)
+            Bookmark.should_receive(:find).any_number_of_times.with("1").and_return(bookmark)
 
             get :show, :id => 1
 

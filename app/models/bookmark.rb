@@ -74,23 +74,19 @@ private
     end
 
     def set_title_and_description
-        begin
-            meta_info = meta_collector.info(url)
-            self.title = meta_info.title
-            self.description = meta_info.description
-            logger.debug "Bookmark: Metainformation has been fetched; title='%s', description='%s'" % [self.title, self.description]
-        rescue Exception => e
-            logger.error "Bookmark: Could not fetch meta information; reason='%s'" % e.inspect
-        end
+        meta_info = meta_collector.info(url)
+        self.title = meta_info.title
+        self.description = meta_info.description
+        logger.debug "Bookmark: Metainformation has been fetched; title='%s', description='%s'" % [self.title, self.description]
+    rescue => e
+        logger.error "Bookmark: Could not fetch meta information; reason='%s'" % e.inspect
     end
 
     def set_short_url
-        begin
-            self.short = url_shortener.use(url).body
-            logger.debug "Bookmark: Short url has been fetched; short_url='%s'" % [self.short]
-        rescue Exception => e
-            logger.error "Bookmark: Could not fetch tiny url; reason='%s'" % e.inspect
-        end
+        self.short = url_shortener.use(url).body
+        logger.debug "Bookmark: Short url has been fetched; short_url='%s'" % [self.short]
+    rescue => e
+        logger.error "Bookmark: Could not fetch tiny url; reason='%s'" % e.inspect
     end
 
 end
